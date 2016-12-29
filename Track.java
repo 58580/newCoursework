@@ -4,35 +4,35 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 /* Each table you wish to access in your database requires a model class, like this example: */
-public class Artist
+public class Track
 {
     /* First, map each of the fields (columns) in your table to some public variables. */
-    public int artistID;
-    public String artistName;
+    public int trackID;
+    public String trackName;
     public int genreId;
 
     /* Next, prepare a constructor that takes each of the fields as arguements. */
-    public Artist(int artistID, String artistName, int genreId)
+    public Track(int trackID, String trackName, int genreId)
     {
-        this.artistID = artistID;        
-        this.artistName = artistName;
+        this.trackID = trackID;        
+        this.trackName = trackName;
         this.genreId = genreId;
     }
 
     /* A toString method is vital so that your model items can be sensibly displayed as text. */
     @Override public String toString()
     {
-        return artistName;
+        return trackName;
     }
 
     /* Different models will require different read and write methods. Here is an example 'loadAll' method 
      * which is passed the target list object to populate. */
-    public static void readAll(List<Artist> list)
+    public static void readAll(List<Track> list)
     {
         list.clear();       // Clear the target list first.
 
         /* Create a new prepared statement object with the desired SQL query. */
-        PreparedStatement statement = Application.database.newStatement("SELECT artistID, artistName, genreId FROM artists ORDER BY artistID"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId FROM tracks ORDER BY trackID"); 
 
         if (statement != null)      // Assuming the statement correctly initated...
         {
@@ -42,7 +42,7 @@ public class Artist
             {
                 try {                               // ...add each one to the list.
                     while (results.next()) {                                               
-                        list.add( new Artist(results.getInt("artistID"), results.getString("artistName"), results.getInt("genreId")));
+                        list.add( new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId")));
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.
@@ -54,22 +54,22 @@ public class Artist
 
     }
 
-    public static Artist getById(int artistID)
+    public static Track getById(int trackID)
     {
-        Artist artist = null;
+        Track track = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT artistID, artistName, genreId FROM artists WHERE artistID = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId FROM tracks WHERE trackID = ?"); 
 
         try 
         {
             if (statement != null)
             {
-                statement.setInt(1, artistID);
+                statement.setInt(1, trackID);
                 ResultSet results = Application.database.runQuery(statement);
 
                 if (results != null)
                 {
-                    artist = new Artist(results.getInt("artistID"), results.getString("artistName"), results.getInt("genreId"));
+                    track = new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"));
                 }
             }
         }
@@ -78,16 +78,16 @@ public class Artist
             System.out.println("Database result processing error: " + resultsexception.getMessage());
         }
 
-        return artist;
+        return track;
     }
 
-    public static void deleteById(int artistID)
+    public static void deleteById(int trackID)
     {
         try 
         {
 
-            PreparedStatement statement = Application.database.newStatement("DELETE FROM artists WHERE artistID = ?");             
-            statement.setInt(1, artistID);
+            PreparedStatement statement = Application.database.newStatement("DELETE FROM tracks WHERE trackID = ?");             
+            statement.setInt(1, trackID);
 
             if (statement != null)
             {
@@ -108,32 +108,32 @@ public class Artist
         try 
         {
 
-            if (artistID == 0)
+            if (trackID == 0)
             {
 
-                statement = Application.database.newStatement("SELECT artistID FROM artists ORDER BY artistID DESC");             
+                statement = Application.database.newStatement("SELECT trackID FROM tracks ORDER BY trackID DESC");             
 
                 if (statement != null)	
                 {
                     ResultSet results = Application.database.runQuery(statement);
                     if (results != null)
                     {
-                        artistID = results.getInt("artistID") + 1;
+                        trackID = results.getInt("trackID") + 1;
                     }
                 }
 
-                statement = Application.database.newStatement("INSERT INTO artists (artistID, artistName, genreId) VALUES (?, ?, ?)");             
-                statement.setInt(1, artistID);
-                statement.setString(2, artistName);
+                statement = Application.database.newStatement("INSERT INTO tracks (trackID, trackName, genreId) VALUES (?, ?, ?)");             
+                statement.setInt(1, trackID);
+                statement.setString(2, trackName);
                 statement.setInt(3, genreId);         
 
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE artists SET artistName = ?, genreId = ? WHERE artistID = ?");             
-                statement.setString(1, artistName);
+                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ? WHERE trackID = ?");             
+                statement.setString(1, trackName);
                 statement.setInt(2, genreId);   
-                statement.setInt(3, artistID);
+                statement.setInt(3, trackID);
             }
 
             if (statement != null)

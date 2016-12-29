@@ -20,14 +20,14 @@ public class SecondarySceneController
     @FXML   private Button addButton;
     @FXML   private Button removeButton;    
     @FXML   private Button saveButton;
+    @FXML   private TextField trackNameTextField;
     @FXML   private TextField artistNameTextField;
-    @FXML   private TextField songNameTextField;
     @FXML   private TextField albumNameTextField;    
     @FXML   private TextField yearReleasedTextField;
     @FXML   private ChoiceBox genreChoiceBox;    
     @FXML   private Button cancelButton;
 
-    private Artist artist;
+    private Track track;
     public SecondarySceneController()
     {
         System.out.println("Initialising controllers...");
@@ -52,9 +52,9 @@ public class SecondarySceneController
         System.out.println("Asserting controls...");
         try
         {
-            assert artistNameTextField != null : "Can't find artistNameTextField";
+            assert trackNameTextField != null : "Can't find trackNameTextField";
             assert albumNameTextField != null : "Can't find albumNameTextField";
-            assert songNameTextField != null : "Can't find songNameTextField";
+            assert artistNameTextField != null : "Can't find artistNameTextField";
             assert yearReleasedTextField != null : "Can't find yearReleasedTextField";
             assert genreChoiceBox != null : "Can't find genreChoiceBox";
             assert saveButton != null : "Can't find saveButton";
@@ -82,14 +82,14 @@ public class SecondarySceneController
 
     public void loadItem(int id)
     {        
-        artist = Artist.getById(id);
-        artistNameTextField.setText(artist.artistName);
+        track = Track.getById(id);
+        trackNameTextField.setText(track.trackName);
 
         List<Genre> targetList = genreChoiceBox.getItems();
 
         for(Genre c : targetList)
         {
-            if (c.genreID == artist.genreId)
+            if (c.genreID == track.genreId)
             {
                 genreChoiceBox.getSelectionModel().select(c);
             }                
@@ -101,17 +101,17 @@ public class SecondarySceneController
     {
         System.out.println("Save button clicked!");        
 
-        if (artist == null)
+        if (track == null)
         {   
-            artist = new Artist(0, "", 0);
+            track = new Track(0, "", 0);
         }
 
-        artist.artistName = artistNameTextField.getText();
+        track.trackName = trackNameTextField.getText();
 
         Genre selectedGenre = (Genre) genreChoiceBox.getSelectionModel().getSelectedItem();        
-        artist.genreId = selectedGenre.genreID;
+        track.genreId = selectedGenre.genreID;
 
-        artist.save();
+        track.save();
 
         parent.initialize();
 

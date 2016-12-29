@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javax.swing.JOptionPane;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import java.util.List;
@@ -73,8 +74,8 @@ public class PrimarySceneController
         /* Next, we load the list of fruit from the database and populate the listView. */
         System.out.println("Populating scene with items from the database...");        
         @SuppressWarnings("unchecked")
-        List<Artist> targetList = mainListView.getItems();  // Grab a reference to the listView's current item list.
-        Artist.readAll(targetList);                     // Hand over control to the fruit model to populate this list.*/           
+        List<Track> targetList = mainListView.getItems();  // Grab a reference to the listView's current item list.
+        Track.readAll(targetList);                     // Hand over control to the fruit model to populate this list.*/           
     }
 
     /* In order to catch stage events (the main example being the close (X) button being clicked) we need
@@ -110,20 +111,26 @@ public class PrimarySceneController
     @FXML   void editClicked()
     {
         System.out.println("Edit was clicked, opening secondary scene.");
-        Artist selectedItem = (Artist) mainListView.getSelectionModel().getSelectedItem();
-        openNewScene(selectedItem.artistID);
+        Track selectedItem = (Track) mainListView.getSelectionModel().getSelectedItem();
+        openNewScene(selectedItem.trackID);
     }
 
     @FXML   void deleteClicked()
     {
-        System.out.println("Delete was clicked!");
-        
-        Artist selectedItem = (Artist) mainListView.getSelectionModel().getSelectedItem();
-        Artist.deleteById(selectedItem.artistID);
-        initialize();
-        
-    }
+        int n = JOptionPane.showConfirmDialog(
+                null, "Are you sure you want to delete this?","Delete",JOptionPane.YES_NO_OPTION);
 
+        if(n == JOptionPane.YES_OPTION)
+        {
+            JOptionPane.showMessageDialog(null, "File Deleted");
+            System.out.println("Delete was clicked!");
+
+            Track selectedItem = (Track) mainListView.getSelectionModel().getSelectedItem();
+            Track.deleteById(selectedItem.trackID);
+            initialize();
+        }
+
+    }
     @FXML   void clearClicked()
     {
         System.out.println("Clear was clicked - this feature is not yet implemented!");        
@@ -149,7 +156,7 @@ public class PrimarySceneController
      * item in the view is currently selected (if any) and outputs it to the console. */    
     @FXML   void listViewClicked()
     {
-        Artist selectedItem = (Artist) mainListView.getSelectionModel().getSelectedItem();
+        Track selectedItem = (Track) mainListView.getSelectionModel().getSelectedItem();
 
         if (selectedItem == null)
         {
@@ -157,11 +164,11 @@ public class PrimarySceneController
         }
         else
         {
-            System.out.println(selectedItem + " (artistID: " + selectedItem.artistID + ") is selected.");
+            System.out.println(selectedItem + " (trackID: " + selectedItem.trackID + ") is selected.");
         }
     }
 
-    void openNewScene(int artistID)
+    void openNewScene(int trackID)
     {
 
         FXMLLoader loader = new FXMLLoader(Application.class.getResource("SecondaryScene.fxml"));
@@ -176,7 +183,7 @@ public class PrimarySceneController
             controller2.prepareStageEvents(stage2);
 
             controller2.setParent(this);
-            if (artistID != 0) controller2.loadItem(artistID);            
+            if (trackID != 0) controller2.loadItem(trackID);            
 
         }
         catch (Exception ex)

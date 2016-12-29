@@ -13,17 +13,17 @@ public class DatabaseConnection {
     public DatabaseConnection(String dbFile)
     {
         try             // There are many things that can go wrong in establishing a database connection...
-        {         
+        {
             Class.forName("org.sqlite.JDBC");                               // ... a missing driver class ...
             connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile); // ... or an error with the file.
             System.out.println("Database connection successfully established.");
-        } 
+        }
         catch (ClassNotFoundException cnfex)    // Catch any database driver error
         {
             System.out.println("Class not found exception: " + cnfex.getMessage());
         }
         catch (SQLException exception)          // Catch any database file errors.
-        {                        
+        {
             System.out.println("Database connection error: " + exception.getMessage());
         }
 
@@ -36,7 +36,7 @@ public class DatabaseConnection {
         try {
             statement = connection.prepareStatement(query);
         }
-        catch (SQLException resultsexception) 
+        catch (SQLException resultsexception)
         {
             System.out.println("Database statement error: " + resultsexception.getMessage());
         }
@@ -45,11 +45,11 @@ public class DatabaseConnection {
 
     /* This method is used to actually execute a query that has previously been prepared. */
     public ResultSet runQuery(PreparedStatement statement)
-    {               
-        try {            
-            return statement.executeQuery();                       
+    {
+        try {
+            return statement.executeQuery();
         }
-        catch (SQLException queryexception) 
+        catch (SQLException queryexception)
         {
             System.out.println("Database query error: " + queryexception.getMessage());
             return null;
@@ -58,17 +58,17 @@ public class DatabaseConnection {
 
     /* This method is used to execute a statement that changes the database (i.e. INSERT, UPDATE or DELETE). */
     public void executeUpdate(PreparedStatement statement)
-    {               
-        try {            
-            statement.executeUpdate();                       
+    {
+        try {
+            statement.executeUpdate();
         }
-        catch (SQLException queryexception) 
+        catch (SQLException queryexception)
         {
             System.out.println("Database update error: " + queryexception.getMessage());
         }
     }
-    
-     /* If you've used autoincrementing primary keys, this method will return the last primary key generated. */
+
+    /* If you've used autoincrementing primary keys, this method will return the last primary key generated. */
     public int lastNewId()
     {
 
@@ -100,12 +100,12 @@ public class DatabaseConnection {
     {
         System.out.println("Disconnecting from database.");
         try {
-            if (connection != null) connection.close();                        
-        } 
-        catch (SQLException finalexception) 
+            if (connection != null) connection.close();
+        }
+        catch (SQLException finalexception)
         {
             System.out.println("Database disconnection error: " + finalexception.getMessage());
-        }        
+        }
     }
 
 }

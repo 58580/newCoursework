@@ -18,7 +18,7 @@
       <TextField fx:id="albumNameTextField" layoutX="86.0" layoutY="127.0" minWidth="200.0" />
       <Label layoutX="44.0" layoutY="171.0" minWidth="100.0" text="Year Released" />
       <TextField fx:id="yearReleasedTextField" layoutX="126.0" layoutY="167.0" minWidth="67.0" prefHeight="25.0" prefWidth="67.0" />
-      <Label layoutX="44.0" layoutY="30.0" minWidth="100.0" text="Song" />
-      <TextField fx:id="songNameTextField" layoutX="86.0" layoutY="26.0" minWidth="200.0" />
+      <Label layoutX="44.0" layoutY="30.0" minWidth="100.0" text="Track" />
+      <TextField fx:id="trackNameTextField" layoutX="86.0" layoutY="26.0" minWidth="200.0" />
    </children>
 </Pane>
