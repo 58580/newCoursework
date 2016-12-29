@@ -1,0 +1,127 @@
+import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
+import java.util.List;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javax.swing.JOptionPane;
+
+public class SecondarySceneController
+{
+
+    private Stage stage;
+    private PrimarySceneController parent;
+
+    @FXML   private Button addButton;
+    @FXML   private Button removeButton;    
+    @FXML   private Button saveButton;
+    @FXML   private TextField artistNameTextField;
+    @FXML   private TextField songNameTextField;
+    @FXML   private TextField albumNameTextField;    
+    @FXML   private TextField yearReleasedTextField;
+    @FXML   private ChoiceBox genreChoiceBox;    
+    @FXML   private Button cancelButton;
+
+    private Artist artist;
+    public SecondarySceneController()
+    {
+        System.out.println("Initialising controllers...");
+    } 
+
+    public void prepareStageEvents(Stage stage)
+    {
+        System.out.println("Preparing stage events...");
+
+        this.stage = stage;
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent we) {
+                    System.out.println("Close button was clicked!");
+                    stage.close();
+                }
+            });
+    }         
+
+    @FXML   void initialize() 
+    {            
+        System.out.println("Asserting controls...");
+        try
+        {
+            assert artistNameTextField != null : "Can't find artistNameTextField";
+            assert albumNameTextField != null : "Can't find albumNameTextField";
+            assert songNameTextField != null : "Can't find songNameTextField";
+            assert yearReleasedTextField != null : "Can't find yearReleasedTextField";
+            assert genreChoiceBox != null : "Can't find genreChoiceBox";
+            assert saveButton != null : "Can't find saveButton";
+            assert cancelButton != null : "Can't find cancelButton";
+
+        }
+        catch (AssertionError ae)
+        {
+            System.out.println("FXML assertion failure: " + ae.getMessage());
+            Application.terminate();
+        }
+
+        System.out.println("Populating scene with items from the database...");        
+        @SuppressWarnings("unchecked")
+        List<Genre> targetList = genreChoiceBox.getItems();  // Grab a reference to the listView's current item list.
+        Genre.readAll(targetList);       
+        genreChoiceBox.getSelectionModel().selectFirst();
+
+    }
+
+    public void setParent(PrimarySceneController parent)
+    {
+        this.parent = parent;
+    }
+
+    public void loadItem(int id)
+    {        
+        artist = Artist.getById(id);
+        artistNameTextField.setText(artist.artistName);
+
+        List<Genre> targetList = genreChoiceBox.getItems();
+
+        for(Genre c : targetList)
+        {
+            if (c.genreID == artist.genreId)
+            {
+                genreChoiceBox.getSelectionModel().select(c);
+            }                
+        }
+
+    }
+
+    @FXML   void saveButtonClicked()
+    {
+        System.out.println("Save button clicked!");        
+
+        if (artist == null)
+        {   
+            artist = new Artist(0, "", 0);
+        }
+
+        artist.artistName = artistNameTextField.getText();
+
+        Genre selectedGenre = (Genre) genreChoiceBox.getSelectionModel().getSelectedItem();        
+        artist.genreId = selectedGenre.genreID;
+
+        artist.save();
+
+        parent.initialize();
+
+        stage.close();
+    }
+
+    @FXML   void cancelButtonClicked()
+    {
+        System.out.println("Cancel button clicked!");        
+        stage.close();
+    }
+
+}
