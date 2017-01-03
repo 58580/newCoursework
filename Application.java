@@ -31,7 +31,7 @@ public class Application
 
             /* Each scene requires a Window, called a stage. The following creates and displays the stage. */
             Stage stage = new Stage();
-            stage.setTitle("JavaFX Inventory App");
+            stage.setTitle("Music Library");
             stage.setScene(new Scene(loader.load()));
             stage.show();           
 

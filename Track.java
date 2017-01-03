@@ -10,7 +10,7 @@ public class Track
     public int trackID;
     public String trackName;
     public int genreId;
-
+    
     /* Next, prepare a constructor that takes each of the fields as arguements. */
     public Track(int trackID, String trackName, int genreId)
     {
@@ -125,12 +125,12 @@ public class Track
                 statement = Application.database.newStatement("INSERT INTO tracks (trackID, trackName, genreId) VALUES (?, ?, ?)");             
                 statement.setInt(1, trackID);
                 statement.setString(2, trackName);
-                statement.setInt(3, genreId);         
-
+                statement.setInt(3, genreId);
+                
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ? WHERE trackID = ?");             
+                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ?, WHERE trackID = ?");             
                 statement.setString(1, trackName);
                 statement.setInt(2, genreId);   
                 statement.setInt(3, trackID);
