@@ -22,7 +22,7 @@ public class Artist
     {
         return artistName;
     }
-  
+
     /* Different models will require different read and write methods. Here is an example 'loadAll' method 
      * which is passed the target list object to populate. */
     public static void readAll(List<Artist> list)
@@ -41,6 +41,7 @@ public class Artist
                 try {								// ...add each one to the list.
                     while (results.next()) {        			                           
                         list.add( new Artist(results.getInt("artistID"), results.getString("artistName")));
+
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.

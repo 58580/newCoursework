@@ -28,7 +28,7 @@ public class SecondarySceneController
     @FXML   private Button cancelButton;
 
     private Track track;
-
+    
     public SecondarySceneController()
     {
         System.out.println("Initialising controllers...");
@@ -84,6 +84,7 @@ public class SecondarySceneController
     public void loadItem(int id)
     {        
         track = Track.getById(id);
+
         trackNameTextField.setText(track.trackName);
 
         List<Genre> targetList = genreChoiceBox.getItems();

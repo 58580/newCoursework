@@ -22,7 +22,7 @@ public class Genre
     {
         return genreName;
     }
-  
+
     /* Different models will require different read and write methods. Here is an example 'loadAll' method 
      * which is passed the target list object to populate. */
     public static void readAll(List<Genre> list)

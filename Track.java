@@ -130,7 +130,7 @@ public class Track
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ?, WHERE trackID = ?");             
+                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ? WHERE trackID = ?");             
                 statement.setString(1, trackName);
                 statement.setInt(2, genreId);   
                 statement.setInt(3, trackID);

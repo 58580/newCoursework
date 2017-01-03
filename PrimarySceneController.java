@@ -122,15 +122,16 @@ public class PrimarySceneController
 
         if(n == JOptionPane.YES_OPTION)
         {
-            JOptionPane.showMessageDialog(null, "File Deleted");
             System.out.println("Delete was clicked!");
 
             Track selectedItem = (Track) mainListView.getSelectionModel().getSelectedItem();
             Track.deleteById(selectedItem.trackID);
             initialize();
+            JOptionPane.showMessageDialog(null, "File Deleted");
         }
 
     }
+
     @FXML   void clearClicked()
     {
         System.out.println("Clear was clicked - this feature is not yet implemented!");        
