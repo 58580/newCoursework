@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javax.swing.JOptionPane;
+import javafx.stage.FileChooser;
+import java.io.File;
 
 public class SecondarySceneController
 {
@@ -18,6 +20,7 @@ public class SecondarySceneController
     private PrimarySceneController parent;
 
     @FXML   private Button addButton;
+    @FXML   private Button browseButton;
     @FXML   private Button removeButton;    
     @FXML   private Button saveButton;
     @FXML   private TextField trackNameTextField;
@@ -28,7 +31,7 @@ public class SecondarySceneController
     @FXML   private Button cancelButton;
 
     private Track track;
-    
+
     public SecondarySceneController()
     {
         System.out.println("Initialising controllers...");
@@ -60,6 +63,7 @@ public class SecondarySceneController
             assert genreChoiceBox != null : "Can't find genreChoiceBox";
             assert saveButton != null : "Can't find saveButton";
             assert cancelButton != null : "Can't find cancelButton";
+            assert browseButton != null : "Can't find browseButton";
 
         }
         catch (AssertionError ae)
@@ -123,6 +127,18 @@ public class SecondarySceneController
     {
         System.out.println("Cancel button clicked!");        
         stage.close();
+    }
+
+    @FXML   void browseButtonClicked()
+    {
+        System.out.println("Browse button clicked!");        
+       FileChooser fileChooser = new FileChooser();
+       fileChooser.setTitle("Pick a file");
+       List<File> list = fileChooser.showOpenMultipleDialog(stage);
+
+        for (File file : list) {
+            System.out.println(" >>>>>> " + file.getName());
+        }
     }
 
 }
