@@ -13,6 +13,9 @@ import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import java.util.List;
 import javafx.scene.control.ChoiceBox;
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class PrimarySceneController
 {    
@@ -24,6 +27,7 @@ public class PrimarySceneController
 
     @FXML   private ListView mainListView;
     @FXML   private Button addButton;
+    @FXML   private Button playButton;
     @FXML   private Button editButton;
     @FXML   private Button deleteButton;
     @FXML   private TextField searchTextField;
@@ -57,6 +61,7 @@ public class PrimarySceneController
         {
             assert mainListView != null : "Can't find mainListView";
             assert addButton != null : "Can't find addButton";
+            assert playButton != null : "Can't find playButton";
             assert editButton != null : "Can't find editButton";
             assert deleteButton != null : "Can't find deleteButton";
             assert searchTextField != null : "Can't find searchTextField";
@@ -135,6 +140,14 @@ public class PrimarySceneController
     @FXML   void clearClicked()
     {
         System.out.println("Clear was clicked - this feature is not yet implemented!");        
+    }
+
+    @FXML   void playClicked()
+    {
+        System.out.println("Play was clicked"); 
+        String uriString = new File("C:/Users/Public/Music/Sample Music/Rae Sremmurd - Black Beatles ft.mp3").toURI().toString();
+        MediaPlayer player = new MediaPlayer( new Media(uriString));
+        player.play();
     }
 
     @FXML   void searchChoiceBoxClicked()

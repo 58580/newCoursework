@@ -33,22 +33,26 @@
             <HBox spacing="5.0">
                <children>
                   <ChoiceBox fx:id="searchChoiceBox" onMouseClicked="#searchChoiceBoxClicked" prefHeight="25.0" prefWidth="85.0" />
-                  <TextField fx:id="searchTextField" promptText="search" />
+                  <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="103.0" promptText="search" />
                   <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#goClicked" prefHeight="25.0" prefWidth="49.0" text="Go">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-                  <Button fx:id="clearButton" layoutX="291.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#clearClicked" prefHeight="25.0" prefWidth="69.0" text="Clear">
-                     <HBox.margin>
-                        <Insets right="40.0" />
-                     </HBox.margin></Button>
-                  <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addClicked" prefHeight="25.0" prefWidth="82.0" text="Add" />
-                  <Button fx:id="editButton" mnemonicParsing="false" onMouseClicked="#editClicked" prefHeight="25.0" prefWidth="70.0" text="Edit">
+                  <Button fx:id="clearButton" layoutX="291.0" layoutY="18.0" mnemonicParsing="false" onMouseClicked="#clearClicked" prefHeight="25.0" prefWidth="55.0" text="Clear">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteClicked" prefHeight="25.0" prefWidth="68.0" text="Delete" />
-                  <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#exitClicked" prefHeight="25.0" prefWidth="71.0" text="Exit" />
+                  <Button fx:id="playButton" mnemonicParsing="false" onMouseClicked="#playClicked" text="Play" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#addClicked" prefHeight="25.0" prefWidth="53.0" text="Add">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button fx:id="editButton" mnemonicParsing="false" onMouseClicked="#editClicked" prefHeight="25.0" prefWidth="49.0" text="Edit">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteClicked" prefHeight="25.0" prefWidth="62.0" text="Delete" />
+                  <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#exitClicked" prefHeight="25.0" prefWidth="46.0" text="Exit" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -66,7 +70,7 @@
    <bottom>
       <HBox prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="60.0" prefWidth="608.0">
+            <Pane prefHeight="106.0" prefWidth="600.0">
                <children>
                   <Label layoutX="14.0" layoutY="30.0" text="Length:" />
                   <Label layoutX="193.0" layoutY="30.0" text="Genre:" />
