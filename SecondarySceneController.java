@@ -88,9 +88,8 @@ public class SecondarySceneController
     public void loadItem(int id)
     {        
         track = Track.getById(id);
-
+        
         trackNameTextField.setText(track.trackName);
-
         List<Genre> targetList = genreChoiceBox.getItems();
         for(Genre c : targetList)
         {
@@ -132,9 +131,9 @@ public class SecondarySceneController
     @FXML   void browseButtonClicked()
     {
         System.out.println("Browse button clicked!");        
-       FileChooser fileChooser = new FileChooser();
-       fileChooser.setTitle("Pick a file");
-       List<File> list = fileChooser.showOpenMultipleDialog(stage);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Pick a file");
+        List<File> list = fileChooser.showOpenMultipleDialog(stage);
 
         for (File file : list) {
             System.out.println(" >>>>>> " + file.getName());
