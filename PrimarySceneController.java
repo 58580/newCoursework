@@ -28,6 +28,7 @@ public class PrimarySceneController
     @FXML   private ListView mainListView;
     @FXML   private Button addButton;
     @FXML   private Button playButton;
+    @FXML   private Button stopButton;
     @FXML   private Button editButton;
     @FXML   private Button deleteButton;
     @FXML   private TextField searchTextField;
@@ -62,6 +63,7 @@ public class PrimarySceneController
             assert mainListView != null : "Can't find mainListView";
             assert addButton != null : "Can't find addButton";
             assert playButton != null : "Can't find playButton";
+            assert stopButton != null : "Can't find stopButton";
             assert editButton != null : "Can't find editButton";
             assert deleteButton != null : "Can't find deleteButton";
             assert searchTextField != null : "Can't find searchTextField";
@@ -149,6 +151,11 @@ public class PrimarySceneController
         MediaPlayer player = new MediaPlayer( new Media(uriString));
         player.play();
     }
+
+    @FXML   void stopClicked()
+    {
+        System.out.println("Stop was clicked");
+        }
 
     @FXML   void searchChoiceBoxClicked()
     {

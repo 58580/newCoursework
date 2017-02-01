@@ -24,7 +24,7 @@ public class Application
     {
         try
         {         
-            database = new DatabaseConnection("Inventory.db");        // Initiate the database connection.
+            database = new DatabaseConnection("musicLibrary.db");        // Initiate the database connection.
 
             /* Load the first fxml file that will create our first JavaFX scene. */
             FXMLLoader loader = new FXMLLoader(Application.class.getResource("PrimaryScene.fxml"));

@@ -107,7 +107,7 @@ public class SecondarySceneController
 
         if (track == null)
         {   
-            track = new Track(0, "", 0);
+            track = new Track(0, "", 0, "");
         }
 
         track.trackName = trackNameTextField.getText();

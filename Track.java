@@ -10,13 +10,15 @@ public class Track
     public int trackID;
     public String trackName;
     public int genreId;
-    
+    public String path;
+
     /* Next, prepare a constructor that takes each of the fields as arguements. */
-    public Track(int trackID, String trackName, int genreId)
+    public Track(int trackID, String trackName, int genreId, String path)
     {
         this.trackID = trackID;        
         this.trackName = trackName;
         this.genreId = genreId;
+        this.path = path;
     }
 
     /* A toString method is vital so that your model items can be sensibly displayed as text. */
@@ -32,7 +34,7 @@ public class Track
         list.clear();       // Clear the target list first.
 
         /* Create a new prepared statement object with the desired SQL query. */
-        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId FROM tracks ORDER BY trackID"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId, path FROM tracks ORDER BY trackID"); 
 
         if (statement != null)      // Assuming the statement correctly initated...
         {
@@ -42,7 +44,7 @@ public class Track
             {
                 try {                               // ...add each one to the list.
                     while (results.next()) {                                               
-                        list.add( new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId")));
+                        list.add( new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"), results.getString("trackName")));
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.
@@ -58,7 +60,7 @@ public class Track
     {
         Track track = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId FROM tracks WHERE trackID = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId, path FROM tracks WHERE trackID = ?"); 
 
         try 
         {
@@ -69,7 +71,7 @@ public class Track
 
                 if (results != null)
                 {
-                    track = new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"));
+                    track = new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"), results.getString("path"));
                 }
             }
         }
@@ -101,6 +103,26 @@ public class Track
 
     }
     
+    public static void playById(int trackID)
+    {
+        try 
+        {
+
+            PreparedStatement statement = Application.database.newStatement("SELECT FROM tracks WHERE trackID = ?");             
+            statement.setInt(1, trackID);
+
+            if (statement != null)
+            {
+                Application.database.executeUpdate(statement);
+            }
+        }
+        catch (SQLException resultsexception)
+        {
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
+
+    }
+
     public void save()    
     {
         PreparedStatement statement;
@@ -122,18 +144,20 @@ public class Track
                     }
                 }
 
-                statement = Application.database.newStatement("INSERT INTO tracks (trackID, trackName, genreId) VALUES (?, ?, ?)");             
+                statement = Application.database.newStatement("INSERT INTO tracks (trackID, trackName, genreId, path) VALUES (?, ?, ?, ?)");             
                 statement.setInt(1, trackID);
                 statement.setString(2, trackName);
                 statement.setInt(3, genreId);
-                
+                statement.setString(4, path);
+
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ? WHERE trackID = ?");             
+                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ? WHERE trackID = ?. path = ?");             
                 statement.setString(1, trackName);
                 statement.setInt(2, genreId);   
                 statement.setInt(3, trackID);
+                statement.setString(4, path);
             }
 
             if (statement != null)
