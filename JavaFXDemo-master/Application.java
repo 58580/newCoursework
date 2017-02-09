@@ -24,14 +24,14 @@ public class Application
     {
         try
         {         
-            database = new DatabaseConnection("Test.db");        // Initiate the database connection.
+            database = new DatabaseConnection("musicLibrary.db");        // Initiate the database connection.
 
-            /* Load the fxml file that will create the JavaFX scene. */
+            /* Load the fxml file that will create the primary scene. */
             FXMLLoader loader = new FXMLLoader(Application.class.getResource("MusicPlayer.fxml"));
 
             /* Each scene requires a Window, called a stage. The following creates and displays the stage. */
             Stage stage = new Stage();
-            stage.setTitle("JavaFX Demo");
+            stage.setTitle("Music Player");
             stage.setScene(new Scene(loader.load()));
             stage.show();           
 
@@ -41,7 +41,7 @@ public class Application
             SceneController controller = loader.getController();
             controller.prepareStageEvents(stage);
         }
-        catch (Exception ex)    // If anything goes wrong starting the application then call the terminate method.
+        catch (Exception ex)    // If anything goes wrong starting the application then call the terminate method which will shut the application.
         {
             System.out.println(ex.getMessage());
             terminate();

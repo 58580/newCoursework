@@ -16,12 +16,16 @@ import javafx.scene.control.ChoiceBox;
 import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javafx.scene.text.*;
 
 public class PrimarySceneController
 {    
     /* The stage that the scene belongs to, required to catch stage events and test for duplicate controllers. */
     private static Stage stage;     
-
+    private static MediaPlayer player;
     /* These FXML variables exactly corrispond to the controls that make up the scene, as designed in Scene 
      * Builder. It is important to ensure that these match perfectly or the controls won't be interactive. */
 
@@ -36,7 +40,13 @@ public class PrimarySceneController
     @FXML   private Button clearButton;
     @FXML   private Button exitButton;
     @FXML   private Pane borderPane; 
-    @FXML   private ChoiceBox searchChoiceBox;   
+    @FXML   private ChoiceBox searchChoiceBox;
+    @FXML   private Text textArtist;  
+    @FXML   private Text textYear;
+    @FXML   private Text textLength;
+    @FXML   private Text textAlbum;
+    @FXML   private Text textGenre;
+    @FXML   private Text textTrackName;
 
     public PrimarySceneController()          // The constructor method, called first when the scene is loaded.
     {
@@ -146,15 +156,30 @@ public class PrimarySceneController
 
     @FXML   void playClicked()
     {
-        System.out.println("Play was clicked"); 
-        String uriString = new File("C:/Users/Public/Music/Sample Music/Rae Sremmurd - Black Beatles ft.mp3").toURI().toString();
-        MediaPlayer player = new MediaPlayer( new Media(uriString));
-        player.play();
+        Track selectedItem = (Track) mainListView.getSelectionModel().getSelectedItem();
+        String trackSelected = selectedItem.trackName;
+        try{
+        PreparedStatement readPath = Application.database.newStatement("SELECT trackName, path FROM tracks");
+        ResultSet run = Application.database.runQuery(readPath);
+            while(run.next()){
+                System.out.println(trackSelected + " " + run.getString("trackName"));
+                if(trackSelected.equals(run.getString("trackName"))){
+                    System.out.println("here");
+                   String uriString = new File(run.getString("path")).toURI().toString();
+                   player = new MediaPlayer( new Media(uriString));
+                   player.play();
+                   return;
+            }
+            }
+    }catch(SQLException e){
+        System.out.println("no");
+    }
     }
 
     @FXML   void stopClicked()
     {
         System.out.println("Stop was clicked");
+        player.stop();
         }
 
     @FXML   void searchChoiceBoxClicked()
@@ -186,6 +211,8 @@ public class PrimarySceneController
         else
         {
             System.out.println(selectedItem + " (trackID: " + selectedItem.trackID + ") is selected.");
+            
+            textTrackName.setText(selectedItem.trackName);
         }
     }
 

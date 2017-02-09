@@ -82,12 +82,12 @@
                   <Label layoutX="386.0" layoutY="30.0" text="Year:" />
                   <Label layoutX="193.0" layoutY="6.0" text="Artist:" />
                   <Label layoutX="386.0" layoutY="6.0" text="Album:" />
-                  <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TrackName" />
-                  <Text layoutX="228.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                  <Text layoutX="430.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                  <Text layoutX="63.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                  <Text layoutX="239.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                  <Text layoutX="419.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="textTrackName" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TrackName" />
+                  <Text fx:id="textartist" layoutX="228.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="textAlbum" layoutX="430.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="textLength" layoutX="63.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="textGenre" layoutX="239.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="textYear" layoutX="419.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                </children>
             </Pane>
          </children>

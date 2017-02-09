@@ -54,11 +54,11 @@ public class SceneController
             Application.terminate();
         }
 
-        /* Next, we load the list of fruit from the database and populate the listView. */
+        /* Next, we load the list of track from the database and populate the listView. */
         System.out.println("Populating scene with items from the database...");        
         @SuppressWarnings("unchecked")
-        List<Fruit> targetList = listView.getItems();  // Grab a reference to the listView's current item list.
-        Fruit.readAll(targetList);                     // Hand over control to the fruit model to populate this list.
+        List<Track> targetList = listView.getItems();  // Grab a reference to the listView's current item list.
+        Track.readAll(targetList);                     // Hand over control to the track model to populate this list.
     }
 
     /* In order to catch stage events (the main example being the close (X) button being clicked) we need
@@ -100,7 +100,7 @@ public class SceneController
      * item in the view is currently selected (if any) and outputs it to the console. */    
     @FXML   void listViewClicked()
     {
-        Fruit selectedItem = (Fruit) listView.getSelectionModel().getSelectedItem();
+        Track selectedItem = (Track) listView.getSelectionModel().getSelectedItem();
 
         if (selectedItem == null)
         {
