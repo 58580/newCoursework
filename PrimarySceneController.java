@@ -159,28 +159,28 @@ public class PrimarySceneController
         Track selectedItem = (Track) mainListView.getSelectionModel().getSelectedItem();
         String trackSelected = selectedItem.trackName;
         try{
-        PreparedStatement readPath = Application.database.newStatement("SELECT trackName, path FROM tracks");
-        ResultSet run = Application.database.runQuery(readPath);
+            PreparedStatement readPath = Application.database.newStatement("SELECT trackName, path FROM tracks");
+            ResultSet run = Application.database.runQuery(readPath);
             while(run.next()){
                 System.out.println(trackSelected + " " + run.getString("trackName"));
                 if(trackSelected.equals(run.getString("trackName"))){
                     System.out.println("here");
-                   String uriString = new File(run.getString("path")).toURI().toString();
-                   player = new MediaPlayer( new Media(uriString));
-                   player.play();
-                   return;
+                    String uriString = new File(run.getString("path")).toURI().toString();
+                    player = new MediaPlayer( new Media(uriString));
+                    player.play();
+                    return;
+                }
             }
-            }
-    }catch(SQLException e){
-        System.out.println("no");
-    }
+        }catch(SQLException e){
+            System.out.println("no");
+        }
     }
 
     @FXML   void stopClicked()
     {
         System.out.println("Stop was clicked");
         player.stop();
-        }
+    }
 
     @FXML   void searchChoiceBoxClicked()
     {
@@ -211,8 +211,9 @@ public class PrimarySceneController
         else
         {
             System.out.println(selectedItem + " (trackID: " + selectedItem.trackID + ") is selected.");
-            
+
             textTrackName.setText(selectedItem.trackName);
+            //textArtist.setText(selectedItem.trackArtist);
         }
     }
 
