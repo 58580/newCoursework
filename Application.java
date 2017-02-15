@@ -1,3 +1,5 @@
+package newCoursework;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;

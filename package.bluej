@@ -60,7 +60,6 @@ package.numDependencies=17
 package.numTargets=8
 package.showExtends=true
 package.showUses=false
-project.charset=UTF-8
 readme.editor.height=700
 readme.editor.width=900
 readme.editor.x=0
