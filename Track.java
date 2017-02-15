@@ -10,14 +10,16 @@ public class Track
     public int trackID;
     public String trackName;
     public int genreId;
+    public int artistId;
     
 
     /* Next, prepare a constructor that takes each of the fields as arguements. */
-    public Track(int trackID, String trackName, int genreId)
+    public Track(int trackID, String trackName, int genreId, int artistId)
     {
         this.trackID = trackID;        
         this.trackName = trackName;
         this.genreId = genreId;
+        this.artistId = artistId;
         
     }
 
@@ -34,7 +36,7 @@ public class Track
         list.clear();       // Clear the target list first.
 
         /* Create a new prepared statement object with the desired SQL query. */
-        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId FROM tracks ORDER BY trackID"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId, artistId FROM tracks ORDER BY trackID"); 
 
         if (statement != null)      // Assuming the statement correctly initated...
         {
@@ -44,7 +46,7 @@ public class Track
             {
                 try {                               // ...add each one to the list.
                     while (results.next()) {                                               
-                        list.add( new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId")));
+                        list.add( new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"), results.getInt("artistId")));
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.
@@ -60,7 +62,7 @@ public class Track
     {
         Track track = null;
 
-        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId FROM tracks WHERE trackID = ?"); 
+        PreparedStatement statement = Application.database.newStatement("SELECT trackID, trackName, genreId, artistId FROM tracks WHERE trackID = ?"); 
 
         try 
         {
@@ -71,7 +73,7 @@ public class Track
 
                 if (results != null)
                 {
-                    track = new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"));
+                    track = new Track(results.getInt("trackID"), results.getString("trackName"), results.getInt("genreId"), results.getInt("artistId"));
                 }
             }
         }
@@ -144,19 +146,21 @@ public class Track
                     }
                 }
 
-                statement = Application.database.newStatement("INSERT INTO tracks (trackID, trackName, genreId) VALUES (?, ?, ?, ?)");             
+                statement = Application.database.newStatement("INSERT INTO tracks (trackID, trackName, genreId, artistId) VALUES (?, ?, ?, ?, ?)");             
                 statement.setInt(1, trackID);
                 statement.setString(2, trackName);
                 statement.setInt(3, genreId);
+                statement.setInt(4, artistId);
                 
 
             }
             else
             {
-                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ? WHERE trackID = ?");             
+                statement = Application.database.newStatement("UPDATE tracks SET trackName = ?, genreId = ?, trackId WHERE trackID = ?");             
                 statement.setString(1, trackName);
                 statement.setInt(2, genreId);   
                 statement.setInt(3, trackID);
+                statement.setInt(4, artistId);
                 
             }
 
