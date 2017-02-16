@@ -1,5 +1,3 @@
-package newCoursework;
-
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
@@ -80,9 +78,9 @@ public class SecondarySceneController
         Genre.readAll(targetList);       
         genreChoiceBox.getSelectionModel().selectFirst();
         
-        List<Artist> targetList = artistNameTextField.getItems();  // Grab a reference to the listView's current item list.
-        Artist.readAll(targetList);       
-        artistNameTextField.getSelectionModel().selectFirst();
+        //List<Artist> targetList2 = artistNameTextField.getText();  // Grab a reference to the listView's current item list.
+        //Artist.readAll(targetList2);       
+        //artistNameTextField.getSelectionModel().selectFirst();
 
     }
 
@@ -104,15 +102,7 @@ public class SecondarySceneController
                 genreChoiceBox.getSelectionModel().select(c);
             }                
         }
-        List<Artist> targetList = artistNameTextField.getItems();
-        for(Artist c : targetList)
-        {
-            if (c.artistID == track.artistId)
-            {
-                artistNameTextField.getSelectionModel().select(c);
-            }                
-        }
-
+  
     }
 
     @FXML   void saveButtonClicked()
@@ -129,10 +119,8 @@ public class SecondarySceneController
         Genre selectedGenre = (Genre) genreChoiceBox.getSelectionModel().getSelectedItem();        
         track.genreId = selectedGenre.genreID;
         
-        Artist selectedArtist = (Artist) artistNameTextField.getSelectionModel().getSelectedItem();        
-        track.artistId = selectedArtist.artistID;
-
-        track.save();
+           
+         track.save();
 
         parent.initialize();
 
